@@ -22,8 +22,7 @@ function init() {
 
 }
 
-if (window.location.href.indexOf('opt7') > -1)
-    init();
+init();
 
 
 

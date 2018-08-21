@@ -5,10 +5,10 @@ import Category from "./views/category.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode: "hash",
+  mode: "history",
   routes: [
     {
-      path: "/",
+      path: window.location.pathname,
       name: "Category",
       component: Category
     }
