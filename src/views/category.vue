@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="hits.total">
         <sidebar/>
         <products/>
     </div>
@@ -8,7 +8,7 @@
 <script>
     import Sidebar from "../components/sidebar"
     import Products from '../components/products'
-    import {mapGetters} from 'vuex'
+    import {mapState, mapGetters} from 'vuex'
 
     export default {
         components: {Sidebar, Products},
@@ -16,6 +16,9 @@
             return {}
         },
         computed: {
+            ...mapState({
+                hits: state => state.filter.hits
+            }),
             ...mapGetters({
                 getSelectedItems: 'filter/getSelectedItems',
                 getSort: 'filter/getSort',
@@ -47,6 +50,9 @@
             async prepare() {
                 const query = this.$queryFactory.initialQuery()
                 await this.$store.dispatch('filter/execute', query)
+                if(this.hits.total){
+                    document.getElementById('product-listing-container').style.display = 'none'
+                }
             },
             async watchItems() {
                 let sort = {}
@@ -62,7 +68,3 @@
         }
     }
 </script>
-
-<style>
-
-</style>

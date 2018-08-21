@@ -4,13 +4,18 @@ import router from './router'
 import store from './store'
 import QueryFactory from "./util/query-generator";
 
+function insertBefore(el, referenceNode) {
+    referenceNode.parentNode.insertBefore(el, referenceNode);
+}
+
 function init() {
     const searchContainer = document.getElementById('search-results-content')
     if (!window.categoryId && !!!searchContainer)
         return false
 
     const container = document.getElementById('product-listing-container')
-    container.innerHTML = ''
+    let vueContainer = document.createElement('div')
+    insertBefore(vueContainer, container)
 
     Vue.prototype.$queryFactory = new QueryFactory()
 
@@ -18,7 +23,7 @@ function init() {
         router,
         store,
         render: h => h(App)
-    }).$mount(container)
+    }).$mount(vueContainer)
 
 }
 
