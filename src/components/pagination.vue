@@ -2,7 +2,7 @@
     <div class="pagination" v-if="pageCount > 1">
         <ul class="pagination-list">
             <li v-if="getCurrentPage > 1" class="pagination-item pagination-item--previous">
-                <a class="pagination-link">
+                <a  v-on:click="changePage(getCurrentPage - 1)" class="pagination-link">
                     <i class="icon" aria-hidden="true">
                         <svg>
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-left"></use>
@@ -49,7 +49,7 @@
             </li>
 
             <li v-if="getCurrentPage < pageCount" class="pagination-item pagination-item--next">
-                <a class="pagination-link">
+                <a v-on:click="changePage(getCurrentPage + 1)" class="pagination-link">
                     Next
                     <i class="icon" aria-hidden="true">
                         <svg>

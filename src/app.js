@@ -9,7 +9,7 @@ function init() {
     if (!window.categoryId && !!!searchContainer)
         return false
 
-    const container = searchContainer ? document.getElementById('product-listing-container') : document.querySelector('.page')
+    const container = document.getElementById('product-listing-container')
     container.innerHTML = ''
 
     Vue.prototype.$queryFactory = new QueryFactory()

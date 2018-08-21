@@ -1,8 +1,8 @@
 const config = {}
 //config.apiUri = 'https://api.optimum7.com/yosemitesam/littlefeets/backend/bridge.php'
-config.apiUri = '//api72.optimum7.com/yosemitesam/littlefeets/backend/bridge.php'
-config.indexName = 'littlefeets'
-config.sort = {field: 'Title.raw', order: 'ASC'}
+config.apiUri = '//api72.optimum7.com/yosemitesam/peora-cem/backend/bridge.php'
+config.indexName = 'peora'
+config.sort = {field: 'Featured', order: 'DESC'}
 config.size = 21
 config.filters = [
     {
@@ -19,24 +19,40 @@ config.filters = [
         ]
     },
     {
-        name: 'Brands',
-        field: 'ProductFilters.Brands',
+        name: 'Metal',
+        field: 'ProductFilters.Metal',
         size: 10,
         operator: 'AND',
         type: 'Refinement',
         component: 'Refinement'
     },
     {
-        name: 'Color',
-        field: 'ProductFilters.Color',
+        name: 'Type',
+        field: 'ProductFilters.Type',
         size: 100,
         operator: 'AND',
         type: 'Refinement',
-        component: 'Swatch'
+        component: 'Refinement'
     },
     {
-        name: 'Size',
-        field: 'ProductFilters.Size',
+        name: 'Gemstone',
+        field: 'ProductFilters.Gemstone',
+        size: 10,
+        operator: 'AND',
+        type: 'Refinement',
+        component: 'Refinement'
+    },
+    {
+        name: 'Shape',
+        field: 'ProductFilters.Shape',
+        size: 10,
+        operator: 'AND',
+        type: 'Refinement',
+        component: 'Refinement'
+    },
+    {
+        name: 'Finger Size',
+        field: 'ProductFilters.Finger Size',
         size: 10,
         operator: 'AND',
         type: 'Refinement',

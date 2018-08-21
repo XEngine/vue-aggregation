@@ -33,7 +33,7 @@ export default class QueryFactory {
                 sortQuery = sortQuery[0]
 
             const sort = sortQuery.split('_')
-            return builder.sort(sort[0] + '.raw', sort[1])
+            return builder.sort(sort[0] === 'Title' ? sort[0] + '.raw' : sort[0], sort[1])
         }
         return builder.sort(config.sort.field, config.sort.order)
     }
@@ -71,7 +71,7 @@ export default class QueryFactory {
     createCategoryOrSearchFilter() {
         const searchContainer = document.getElementById('search-results-content')
         if (!!!searchContainer) {
-            return builder.boolQuery().must(builder.termQuery('Category', window.categoryId))
+            return builder.boolQuery().must(builder.termQuery('Categories', window.categoryId))
         }
 
         const query = qs.parse(window.location.search)

@@ -22,7 +22,7 @@
     export default {
         data() {
             return {
-                sort: 'alphaasc'
+                sort: 'featured'
             }
         },
         watch: {
@@ -55,7 +55,7 @@
                         break;
                     }
                     case 'avgcustomerreview': {
-                        query = {field: 'CustomReviews', order: 'DESC'}
+                        query = {field: 'CustomerReviews', order: 'DESC'}
                         break;
                     }
                     case 'priceasc': {

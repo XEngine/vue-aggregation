@@ -1,35 +1,47 @@
 <template>
     <main class="page-content">
-        <sort />
-        <ul class="productGrid">
+        <sort/>
+        <div class="list-grid--switcher">
+            <a class="list" v-on:click="toggleGrid" :class="{'active' : gridClass === 'productGrid'}">
+                <i class="fa fa-list-ul" aria-hidden="true"></i>
+            </a>
+            <a class="grid" v-on:click="toggleGrid" :class="{'active' : gridClass === 'productList'}">
+                <i class="fa fa-th" aria-hidden="true"></i>
+            </a>
+        </div>
+        <ul :class="gridClass">
             <li v-for="hit in hits.hits" class="product">
-                <article class="card ">
+                <article class="card">
                     <figure class="card-figure">
-                        <a :href="`https://littlefeetch.com${hit._source.StoreURL}`">
+                        <a :href="`${hit._source.StoreURL}`">
                             <div class="card-img-container">
-                                <img class="card-image" data-sizes="auto"
-                                     :src="hit._source.ImgFiles"
-                                     :alt="hit._source.Title" :title="hit._source.Title" sizes="263px">
+                                <img class="card-image lazyautosizes" data-sizes="auto"
+                                     :src="hit._source.ImgFile"
+                                     :data-src="hit._source.ImgFile"
+                                     :alt="hit._source.Title" :title="hit._source.Title" sizes="288px">
                             </div>
                         </a>
-                        <figcaption v-if="hit._source.Price" class="card-figcaption">
+                        <figcaption class="card-figcaption">
                             <div class="card-figcaption-body">
-                                <a :href="`https://littlefeetch.com${hit._source.StoreURL}`"
-                                   class="button button--small card-figcaption-button"
-                                   :data-product-id="hit._source.StoreProductID">Choose Options</a>
+                                <a :href="`${hit._source.StoreURL}`"
+                                   class="card-figcaption-button quickview"
+                                   :data-product-id="hit._source.StoreProductID"><img
+                                        src="/stencil/00000000-0000-0000-0000-000000000001//img/mag.svg" alt=""></a>
                             </div>
                         </figcaption>
                     </figure>
                     <div class="card-body">
                         <h4 class="card-title">
-                            <a :href="`https://littlefeetch.com${hit._source.StoreURL}`">{{hit._source.Title}}</a>
+                            <a :href="`${hit._source.StoreURL}`">{{hit._source.Title}}</a>
                         </h4>
-                        <div class="card-text" v-if="hit._source.Price" data-test-info-type="price">
-                            <div class="price-section price-section--withoutTax">
-                                <span class="price-label"></span>
-                                <span class="price-now-label" style="display: none;">Now:</span>
-                                <span v-if="hit._source.PriceFrom > 0" class="price price--withoutTax">{{moneyFormat(hit._source.PriceFrom)}} - {{moneyFormat(hit._source.PriceTo)}}</span>
-                                <span v-else class="price price--withoutTax">{{moneyFormat(hit._source.Price)}}</span>
+                        <div class="card-desc">
+                            {{hit._source.Description}}
+                        </div>
+                        <div class="card-text" data-test-info-type="price">
+                            <div class="price-section price-section--withoutTax ">
+                                <span data-product-price-without-tax="" class="price price--withoutTax">{{moneyFormat(hit._source.Price)}}</span>
+                                <span v-if="hit._source.RetailPrice > 0" data-product-rrp-without-tax=""
+                                      class="price price--rrp">{{moneyFormat(hit._source.RetailPrice)}}</span>
                             </div>
                         </div>
                     </div>
@@ -56,9 +68,22 @@
                 hits: 'filter/getHits'
             })
         },
+        data() {
+            return {
+                gridClass: 'productGrid'
+            }
+        },
         methods: {
             moneyFormat(amount) {
-                return Dinero({amount: amount*100, currency: 'USD'}).toFormat('$0,0.00')
+                try {
+                    const result = Dinero({amount: Math.ceil(amount * 100), currency: 'USD'}).toFormat('$0,0.00');
+                    return result
+                } catch (e) {
+                    console.log(amount)
+                }
+            },
+            toggleGrid() {
+                this.gridClass = this.gridClass === 'productGrid' ? 'productList' : 'productGrid'
             }
         }
     }
