@@ -1,21 +1,26 @@
 <template>
-    <div class="sidebarBlock" v-if="selectedItems.length">
-        <h5 class="sidebarBlock-heading">Selected Filters</h5>
-        <ul class="navList">
-            <li class="navList-item" v-for="item in selectedItems">
+    <div class="filter-clear" v-if="selectedItems.length">
+        <!--<h5 class="sidebarBlock-heading">Selected Filters</h5>-->
+        <ul class="filter-clear-list">
+            <li class="filter-clear-item" v-for="item in selectedItems">
                 <a v-on:click="clearSelected(item.rawTitle, item.rawValue)">
                     <i class="icon" aria-hidden="true">
                         <svg>
                             <use xlink:href="#icon-close"></use>
                         </svg>
                     </i>
-                </a>
-                <span>{{item.title}} : {{item.value}}</span>
+                </a> <span><strong>{{item.title}}</strong> : {{item.value}}</span>
+            </li>
+            <li class="filter-clear-item clear-all" v-on:click="clearAll">
+                <button>
+                    <i class="icon" aria-hidden="true">
+                        <svg>
+                            <use xlink:href="#icon-close"></use>
+                        </svg>
+                    </i><span>Reset All</span>
+                </button>
             </li>
         </ul>
-        <a v-on:click="clearAll">
-            <button class="button button--primary button--small">Clear all</button>
-        </a>
     </div>
 </template>
 

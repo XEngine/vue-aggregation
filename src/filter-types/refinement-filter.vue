@@ -1,23 +1,27 @@
 <template>
-    <div class="sidebarBlock" v-if="aggregations.buckets && aggregations.buckets.length">
-        <h5 class="sidebarBlock-heading">{{name}}</h5>
-        <ul class="navList">
-            <li class="navList-item" v-for="bucket in aggregations.buckets">
-                <input v-on:change="toggleChecked(bucket.key, $event)"
-                       :checked="selectedAggs[bucket.key] || false"
-                       class="form-checkbox"
-                       :id="bucket.key"
-                       type="checkbox">
-                <label class="form-label optimizedCheckout-form-label" :for="bucket.key">
-                    {{bucket.key}} ({{bucket.doc_count}})
-                </label>
-            </li>
-        </ul>
-        <a v-on:click="toggleCardinality(field)" v-if="size < aggregations.cardinality">
-            <span v-if="this.cardinality === this.aggregations.cardinality">Show less...</span>
-            <span v-else>Show more...</span>
-        </a>
-    </div>
+    <li class="filter-item" v-if="aggregations.buckets && aggregations.buckets.length">
+        <v-collapse-wrapper  :active="false">
+            <button v-collapse-toggle>{{name}}</button>
+            <div class="filter-dropdown" v-collapse-content>
+                <ul>
+                    <li v-for="bucket in aggregations.buckets">
+                        <input v-on:change="toggleChecked(bucket.key, $event)"
+                                :checked="selectedAggs[bucket.key] || false"
+                                class="form-checkbox"
+                                :id="bucket.key"
+                                type="checkbox">
+                        <label class="form-label optimizedCheckout-form-label" :for="bucket.key">
+                            {{bucket.key}} ({{bucket.doc_count}})
+                        </label>
+                    </li>
+                    <li v-on:click="toggleCardinality(field)" v-if="size < aggregations.cardinality">
+                        <span v-if="this.cardinality === this.aggregations.cardinality">Show less...</span>
+                        <span v-else>Show more...</span>
+                    </li>
+                </ul>
+            </div>
+        </v-collapse-wrapper>
+    </li>
 </template>
 
 <script>

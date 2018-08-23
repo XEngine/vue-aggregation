@@ -47,6 +47,7 @@
     "vue-loader": "^15.2.6",
     "vue-style-loader": "^4.1.1",
     "vue-template-compiler": "^2.5.17",
+    "vue2-collapse": "^1.0.15",
     "webpack": "^4.16.4",
     "webpack-assets-manifest": "^3.0.1",
     "webpack-clean-obsolete-chunks": "^0.4.0",
@@ -65,6 +66,7 @@
     "vex-dialog": "^1.1.0",
     "vex-js": "^4.1.0",
     "vue": "^2.5.17",
+    "vue-click-outside": "^1.0.7",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   }

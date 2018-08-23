@@ -2,7 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import QueryFactory from "./util/query-generator";
+import QueryFactory from "./util/query-generator"
+import VueCollapse from 'vue2-collapse'
+
 
 function insertBefore(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode);
@@ -19,12 +21,14 @@ function init() {
 
     Vue.prototype.$queryFactory = new QueryFactory()
 
+
     new Vue({
         router,
         store,
         render: h => h(App)
     }).$mount(vueContainer)
 
+    Vue.use(VueCollapse)
 }
 
 init();
