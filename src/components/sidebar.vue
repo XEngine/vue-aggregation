@@ -18,10 +18,10 @@
 
             <div class="filter-display">
                 <div class="list-grid--switcher">
-                    <a class="grid" v-on:click="toggleGrid" :class="{'active' : gridClass === 'productList'}">
+                    <a class="grid" v-on:click="toggleGrid" :class="{'active' : gridClass === 'productGrid'}">
                         <i class="fa fa-th" aria-hidden="true"></i>
                     </a>
-                    <a class="list" v-on:click="toggleGrid" :class="{'active' : gridClass === 'productGrid'}">
+                    <a class="list" v-on:click="toggleGrid" :class="{'active' : gridClass === 'productList'}">
                         <i class="fa fa-list-ul" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -67,9 +67,8 @@
                 this.gridClass = this.gridClass === 'productGrid' ? 'productList' : 'productList'
             },
             collapseDisable(e){
-                var specifiedElement = document.getElementById('filterContainer');
-                var isClickInside = specifiedElement.contains(e.target);
-                if (!isClickInside) {
+                const specifiedElement = document.getElementById('filterContainer');
+                if (!specifiedElement.contains(e.target)) {
                     this.$store.dispatch('filter/toggleCollapse', null)
                 }
             }
