@@ -42,7 +42,6 @@ export default class QueryFactory {
         if (queries['page']) {
             let pageQuery = queries['page'] - 1
 
-            console.log(pageQuery, config.size, pageQuery * config.size)
             return pageQuery * config.size
         }
         return 0

@@ -3,7 +3,7 @@ const config = {}
 config.apiUri = '//api72.optimum7.com/yosemitesam/peora-cem/backend/bridge.php'
 config.indexName = 'peora'
 config.sort = {field: 'Featured', order: 'DESC'}
-config.size = 21
+config.size = 48
 config.filters = [
     {
         name: 'Price',
