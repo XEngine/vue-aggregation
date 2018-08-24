@@ -26,6 +26,7 @@
                     </a>
                 </div>
                 <sort/>
+                <total-item></total-item>
             </div>
         </div>
     </div>
@@ -37,11 +38,13 @@
     import {mapGetters} from 'vuex'
     import ClearSelected from "./clearSelected";
     import Sort from './sort'
+    import TotalItem from './total-item'
 
     export default {
         components: {
             ClearSelected,
             Sort,
+            TotalItem,
             'Refinement': RefinementFilter,
             'Numeric': NumericFilter,
             'Swatch': SwatchFilter

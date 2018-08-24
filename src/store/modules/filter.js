@@ -13,6 +13,7 @@ const state = {
     sort: false,
     page: false,
     filters: config.filters,
+    collapsibleToggle: null
 }
 
 // getters
@@ -63,6 +64,9 @@ const actions = {
     },
     changeSort: async function ({commit, state}, payload) {
         commit('setSort', payload)
+    },
+    toggleCollapse: async function ({commit, state}, payload) {
+        commit('setActiveCollapse', payload)
     }
 }
 // mutations
@@ -77,8 +81,8 @@ const mutations = {
             const filterFromQuery = config.filters.find(f => {
                 return f.field === k
             })
-           if(!filterFromQuery)
-               continue
+            if (!filterFromQuery)
+                continue
 
             if (typeof queryItems[k] === 'string') {
                 result[k] = {}
@@ -108,7 +112,8 @@ const mutations = {
     },
     setCardinality: function (state, payload) {
         state.cardinality = Object.assign({}, state.cardinality, {[payload.field]: payload.cardinality})
-    }
+    },
+    setActiveCollapse: (state, payload) => state.collapsibleToggle = payload
 }
 
 export default {

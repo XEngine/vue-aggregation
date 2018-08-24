@@ -1,31 +1,31 @@
 <template>
     <li class="filter-item" v-if="aggregations.buckets && aggregations.buckets.length">
-        <v-collapse-wrapper  :active="false">
-            <button v-collapse-toggle>{{name}}</button>
-            <div class="filter-dropdown" v-collapse-content>
-                <ul>
-                    <li v-for="bucket in aggregations.buckets">
-                        <input v-on:change="toggleChecked(bucket.key, $event)"
-                                :checked="selectedAggs[bucket.key] || false"
-                                class="form-checkbox"
-                                :id="bucket.key"
-                                type="checkbox">
-                        <label class="form-label optimizedCheckout-form-label" :for="bucket.key">
-                            {{bucket.key}} ({{bucket.doc_count}})
-                        </label>
-                    </li>
-                    <li v-on:click="toggleCardinality(field)" v-if="size < aggregations.cardinality">
-                        <span v-if="this.cardinality === this.aggregations.cardinality">Show less...</span>
-                        <span v-else>Show more...</span>
-                    </li>
-                </ul>
-            </div>
-        </v-collapse-wrapper>
+        <button v-on:click="toggleCollapse">
+            {{name}}
+        </button>
+        <div class="filter-dropdown" v-if="active === name">
+            <ul>
+                <li v-for="bucket in aggregations.buckets">
+                    <input v-on:change="toggleChecked(bucket.key, $event)"
+                           :checked="selectedAggs[bucket.key] || false"
+                           class="form-checkbox"
+                           :id="bucket.key"
+                           type="checkbox">
+                    <label class="form-label optimizedCheckout-form-label" :for="bucket.key">
+                        {{bucket.key}} ({{bucket.doc_count}})
+                    </label>
+                </li>
+                <li v-on:click="toggleCardinality(field)" v-if="size < aggregations.cardinality">
+                    <span v-if="this.cardinality === this.aggregations.cardinality">Show less...</span>
+                    <span v-else>Show more...</span>
+                </li>
+            </ul>
+        </div>
     </li>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapState} from 'vuex'
     import Checkbox from "../components/checkbox";
 
     export default {
@@ -34,12 +34,12 @@
             'name',
             'field',
             'operator',
-            'size'
+            'size',
         ],
         data() {
             return {
                 mutable_size: this.size,
-                mutable_sort: 'count'
+                mutable_sort: 'count',
             }
         },
         computed: {
@@ -47,6 +47,9 @@
                 getAggregations: 'filter/getAggregationByField',
                 getSelectedItems: 'filter/getSelectedItemsByField',
                 getCardinalityByField: 'filter/getCardinalityByField'
+            }),
+            ...mapState({
+                active: state => state.filter.collapsibleToggle
             }),
             cardinality: function () {
                 return this.getCardinalityByField(this.field)
@@ -68,6 +71,14 @@
                     field: field,
                     cardinality: this.cardinality === this.aggregations.cardinality ? this.size : this.aggregations.cardinality
                 })
+            },
+            toggleCollapse: function () {
+                if(this.active === this.name) {
+                    this.$store.dispatch('filter/toggleCollapse', null)
+                    return true
+                }
+
+                this.$store.dispatch('filter/toggleCollapse', this.name)
             }
         }
     }

@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import QueryFactory from "./util/query-generator"
-import VueCollapse from 'vue2-collapse'
 
 
 function insertBefore(el, referenceNode) {
@@ -28,7 +27,6 @@ function init() {
         render: h => h(App)
     }).$mount(vueContainer)
 
-    Vue.use(VueCollapse)
 }
 
 init();
