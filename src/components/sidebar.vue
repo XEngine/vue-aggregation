@@ -1,7 +1,7 @@
 <template>
     <div class="filters">
         <div class="container">
-            <ul class="filter">
+            <ul class="filter" id="filterContainer">
                 <template v-for="filter in filters">
                     <component
                             v-bind:is="filter.component"
@@ -59,9 +59,19 @@
                 gridClass: 'productGrid'
             }
         },
+        mounted(){
+            document.addEventListener('click', this.collapseDisable.bind(this));
+        },
         methods: {
             toggleGrid() {
                 this.gridClass = this.gridClass === 'productGrid' ? 'productList' : 'productList'
+            },
+            collapseDisable(e){
+                var specifiedElement = document.getElementById('filterContainer');
+                var isClickInside = specifiedElement.contains(e.target);
+                if (!isClickInside) {
+                    this.$store.dispatch('filter/toggleCollapse', null)
+                }
             }
         }
     }
