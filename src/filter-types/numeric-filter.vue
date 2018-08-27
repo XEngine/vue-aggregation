@@ -1,5 +1,5 @@
 <template>
-    <li class="filter-item" v-if="aggregations.buckets && aggregations.buckets.length">
+    <li class="filter-item" v-if="aggregations.buckets && aggregations.buckets.length" :class="{'open': active === name}">
         <button v-on:click="toggleCollapse">
             {{name}}
         </button>
