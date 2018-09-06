@@ -6,7 +6,7 @@ const https = require('https')
 module.exports = {
     ...webpack,
     output: {
-        publicPath: "https://localhost:9001/",
+        publicPath: "https://localhost:9000/",
         path: path.join(__dirname, '../dist'),
         filename: '[name].bundle.js',
         chunkFilename: '[name].bundle.js',
@@ -14,7 +14,7 @@ module.exports = {
     devtool: "source-map",
     devServer: {
         compress: true,
-        port: 9001,
+        port: 9000,
         https: true,
         headers: {
             'Access-Control-Allow-Origin': '*'

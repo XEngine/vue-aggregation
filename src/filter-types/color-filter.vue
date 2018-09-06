@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebarBlock" v-if="aggregations.buckets && aggregations.buckets.length">
+    <div class="sidebarBlock" v-if="aggregations.buckets && aggregations.buckets.length > 1">
         <h5 class="sidebarBlock-heading">{{name}}</h5>
         <ul class="navList">
             <li class="navList-item" v-for="bucket in aggregations.buckets">

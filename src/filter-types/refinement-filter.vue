@@ -1,5 +1,5 @@
 <template>
-    <li class="filter-item" v-if="aggregations.buckets && aggregations.buckets.length"
+    <li class="filter-item" v-if="aggregations.buckets && aggregations.buckets.length > 1"
         :class="{'open': active === name}">
         <button v-on:click="toggleCollapse">
             {{name}}
@@ -66,6 +66,7 @@
             toggleChecked: async function (key, event) {
                 const checked = event.target.checked
                 await this.$store.dispatch('filter/checkItems', {field: this.field, key: key, set: checked})
+                await this.$store.dispatch('filter/toggleCollapse', null)
             },
             toggleCardinality: async function (field) {
                 await this.$store.dispatch('filter/incrementCardinalityByField', {

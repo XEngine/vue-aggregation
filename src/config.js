@@ -5,20 +5,7 @@ config.indexName = 'peora'
 config.sort = {field: 'Featured', order: 'DESC'}
 config.size = 48
 config.filters = [
-    {
-        name: 'Price',
-        field: 'Price',
-        size: 100,
-        operator: 'AND',
-        type: 'Numeric',
-        component: 'Numeric',
-        keys: [
-            {key: "up to 50$", from: 0, to: 50},
-            {key: "50$ to 100$", from: 50, to: 100},
-            {key: "100$ or more", from: 100}
-        ]
-    },
-    {
+     {
         name: 'Metal',
         field: 'ProductFilters.Metal',
         size: 10,
@@ -57,6 +44,19 @@ config.filters = [
         operator: 'AND',
         type: 'Refinement',
         component: 'Refinement'
+    },
+    {
+        name: 'Price',
+        field: 'Price',
+        size: 100,
+        operator: 'AND',
+        type: 'Numeric',
+        component: 'Numeric',
+        keys: [
+            {key: "up to 50$", from: 0, to: 50},
+            {key: "50$ to 100$", from: 50, to: 100},
+            {key: "100$ or more", from: 100}
+        ]
     }
 ]
 
